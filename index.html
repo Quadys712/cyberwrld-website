@@ -4,690 +4,187 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>CyberWRLD — Minecraft Server</title>
-
 <style>
-:root{
-  color-scheme:dark;
-  --bg:#07100b;
-  --surface:#0d1911;
-  --surface2:#122217;
-  --text:#f3fff5;
-  --muted:#a9b8ad;
-  --accent:#55e06f;
-  --border:#23432b;
-  --shadow:0 18px 50px rgba(0,0,0,.28)
-}
-
-*{box-sizing:border-box}
-
-html{
-  scroll-behavior:smooth
-}
-
-body{
-  margin:0;
-  font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;
-  background:#07100b;
-  color:var(--text)
-}
-
-#app{
-  min-height:100vh;
-  background:linear-gradient(180deg,#07100b 0%,#0a160d 45%,#07100b 100%)
-}
-
-a{
-  text-decoration:none;
-  color:inherit
-}
-
-.container{
-  width:min(1120px,92%);
-  margin:auto
-}
-
-/* NAVBAR */
-
-nav{
-  position:sticky;
-  top:0;
-  z-index:5;
-  background:rgba(7,16,11,.9);
-  backdrop-filter:blur(12px);
-  border-bottom:1px solid var(--border)
-}
-
-.nav{
-  height:72px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between
-}
-
-.brand{
-  display:flex;
-  align-items:center;
-  gap:11px;
-  font-weight:900;
-  font-size:20px
-}
-
-.cube{
-  width:34px;
-  height:34px;
-  border-radius:9px;
-  background:linear-gradient(135deg,var(--accent),#15953a);
-  display:grid;
-  place-items:center;
-  color:#061009;
-  font-weight:1000;
-  box-shadow:0 8px 25px rgba(85,224,111,.22)
-}
-
-.links{
-  display:flex;
-  gap:24px;
-  color:var(--muted);
-  font-weight:700
-}
-
-.links a:hover{
-  color:var(--text)
-}
-
-/* HERO */
-
-.hero{
-  padding:92px 0 70px;
-  position:relative;
-  overflow:hidden
-}
-
-.hero:before{
-  content:"";
-  position:absolute;
-  inset:-180px auto auto 55%;
-  width:500px;
-  height:500px;
-  background:radial-gradient(circle,rgba(69,218,92,.18),transparent 65%);
-  pointer-events:none
-}
-
-.eyebrow{
-  display:inline-flex;
-  padding:7px 11px;
-  border:1px solid #2d6238;
-  border-radius:999px;
-  background:#0b1b10;
-  color:#83ef96;
-  font-size:13px;
-  font-weight:800
-}
-
-.hero h1{
-  font-size:clamp(42px,7vw,76px);
-  line-height:.98;
-  margin:20px 0 18px;
-  max-width:850px;
-  letter-spacing:-3px
-}
-
-.hero h1 span{
-  color:var(--accent)
-}
-
-.hero p{
-  font-size:18px;
-  line-height:1.7;
-  color:var(--muted);
-  max-width:680px
-}
-
-.actions{
-  display:flex;
-  gap:12px;
-  flex-wrap:wrap;
-  margin-top:30px
-}
-
-.btn{
-  padding:13px 18px;
-  border-radius:11px;
-  border:1px solid var(--border);
-  font-weight:900;
-  cursor:pointer
-}
-
-.primary{
-  background:var(--accent);
-  color:#061009;
-  border-color:var(--accent)
-}
-
-.primary:hover{
-  background:#79ed8c
-}
-
-.secondary{
-  background:var(--surface2)
-}
-
-.secondary:hover{
-  border-color:#3d7448
-}
-
-/* STATUS */
-
-.status{
-  margin-top:48px;
-  display:flex;
-  align-items:center;
-  gap:12px;
-  padding:16px 18px;
-  background:var(--surface);
-  border:1px solid var(--border);
-  border-radius:14px;
-  width:min(620px,100%);
-  box-shadow:var(--shadow)
-}
-
-.dot{
-  width:11px;
-  height:11px;
-  background:#48e56a;
-  border-radius:50%;
-  box-shadow:0 0 14px #48e56a
-}
-
-.status strong{
-  font-size:15px
-}
-
-.status small{
-  color:var(--muted);
-  margin-left:auto
-}
-
-/* SECTIONS */
-
-section{
-  padding:76px 0
-}
-
-.section-title{
-  font-size:34px;
-  margin:0 0 10px
-}
-
-.section-sub{
-  color:var(--muted);
-  margin:0 0 30px
-}
-
-.grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:18px
-}
-
-.card{
-  background:var(--surface);
-  border:1px solid var(--border);
-  border-radius:18px;
-  padding:25px;
-  box-shadow:var(--shadow)
-}
-
-.icon{
-  font-size:28px
-}
-
-.card h3{
-  margin:16px 0 8px
-}
-
-.card p{
-  color:var(--muted);
-  line-height:1.65;
-  margin:0
-}
-
-/* IP */
-
-.ipbox{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:15px;
-  background:var(--surface2);
-  border:1px solid var(--border);
-  border-radius:16px;
-  padding:18px 20px;
-  margin-top:24px
-}
-
-.ip{
-  font-family:ui-monospace,SFMono-Regular,monospace;
-  font-size:18px;
-  font-weight:900
-}
-
-.copy{
-  background:#18351f;
-  color:var(--text);
-  border:1px solid #315e3b;
-  padding:10px 14px;
-  border-radius:9px;
-  font-weight:800;
-  cursor:pointer
-}
-
-.copy:hover{
-  background:#21462a
-}
-
-/* REGULAMIN */
-
-.rules{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:14px
-}
-
-.rule{
-  padding:17px 18px;
-  border:1px solid var(--border);
-  border-radius:13px;
-  background:var(--surface)
-}
-
-.rule b{
-  color:var(--accent)
-}
-
-/* FOOTER */
-
-footer{
-  border-top:1px solid var(--border);
-  padding:28px 0;
-  color:var(--muted)
-}
-
-/* MOBILE */
-
-@media(max-width:760px){
-
-  .links{
-    display:none
-  }
-
-  .hero{
-    padding-top:65px
-  }
-
-  .grid,
-  .rules{
-    grid-template-columns:1fr
-  }
-
-  .ipbox{
-    align-items:flex-start;
-    flex-direction:column
-  }
-
-  .hero h1{
-    letter-spacing:-2px
-  }
-}
+:root{color-scheme:light dark;--bg:#07100b;--surface:#0d1911;--surface2:#122217;--text:#f3fff5;--muted:#a9b8ad;--accent:#55e06f;--accent2:#20b84d;--border:#23432b;--shadow:0 18px 50px rgba(0,0,0,.28)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;background:#07100b;color:var(--text)}
+#app{min-height:100vh;background:linear-gradient(180deg,#07100b 0%,#0a160d 45%,#07100b 100%);color:var(--text)}
+a{text-decoration:none;color:inherit}.container{width:min(1120px,92%);margin:auto}
+nav{position:sticky;top:0;z-index:5;background:rgba(7,16,11,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}.nav{height:72px;display:flex;align-items:center;justify-content:space-between}.brand{display:flex;align-items:center;gap:11px;font-weight:900;font-size:20px}.cube{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,var(--accent),#15953a);display:grid;place-items:center;color:#061009;font-weight:1000;box-shadow:0 8px 25px rgba(85,224,111,.22)}.links{display:flex;gap:24px;color:var(--muted);font-weight:700}.links a:hover{color:var(--text)}
+.hero{padding:92px 0 70px;position:relative;overflow:hidden}.hero:before{content:"";position:absolute;inset:-180px auto auto 55%;width:500px;height:500px;background:radial-gradient(circle,rgba(69,218,92,.18),transparent 65%);pointer-events:none}.eyebrow{display:inline-flex;padding:7px 11px;border:1px solid #2d6238;border-radius:999px;background:#0b1b10;color:#83ef96;font-size:13px;font-weight:800}.hero h1{font-size:clamp(42px,7vw,76px);line-height:.98;margin:20px 0 18px;max-width:850px;letter-spacing:-3px}.hero h1 span{color:var(--accent)}.hero p{font-size:18px;line-height:1.7;color:var(--muted);max-width:680px}.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}.btn{padding:13px 18px;border-radius:11px;border:1px solid var(--border);font-weight:900;cursor:pointer}.primary{background:var(--accent);color:#061009;border-color:var(--accent)}.primary:hover{background:#79ed8c}.secondary{background:var(--surface2)}.secondary:hover{border-color:#3d7448}
+.status{margin-top:48px;display:flex;align-items:center;gap:12px;padding:16px 18px;background:var(--surface);border:1px solid var(--border);border-radius:14px;width:min(620px,100%);box-shadow:var(--shadow)}.dot{width:11px;height:11px;background:#48e56a;border-radius:50%;box-shadow:0 0 14px #48e56a}.status strong{font-size:15px}.status small{color:var(--muted);margin-left:auto}
+section{padding:76px 0}.section-title{font-size:34px;margin:0 0 10px}.section-sub{color:var(--muted);margin:0 0 30px}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:25px;box-shadow:var(--shadow)}.icon{font-size:28px}.card h3{margin:16px 0 8px}.card p{color:var(--muted);line-height:1.65;margin:0}
+.ipbox{display:flex;align-items:center;justify-content:space-between;gap:15px;background:var(--surface2);border:1px solid var(--border);border-radius:16px;padding:18px 20px;margin-top:24px}.ip{font-family:ui-monospace,SFMono-Regular,monospace;font-size:18px;font-weight:900}.copy{background:#18351f;color:var(--text);border:1px solid #315e3b;padding:10px 14px;border-radius:9px;font-weight:800;cursor:pointer}.copy:hover{background:#21462a}
+.rules{display:grid;grid-template-columns:1fr 1fr;gap:14px}.rule{padding:17px 18px;border:1px solid var(--border);border-radius:13px;background:var(--surface)}.rule b{color:var(--accent)}
+footer{border-top:1px solid var(--border);padding:28px 0;color:var(--muted);display:flex;justify-content:space-between;gap:15px}
+@media(max-width:760px){.links{display:none}.hero{padding-top:65px}.grid,.rules{grid-template-columns:1fr}.ipbox{align-items:flex-start;flex-direction:column}.hero h1{letter-spacing:-2px}}
 </style>
 </head>
-
 <body>
-
 <div id="app">
 
-<!-- NAVBAR -->
-
 <nav>
-  <div class="container nav">
-
-    <a class="brand" href="#home">
-      <span class="cube">C</span>
-      CyberWRLD
-    </a>
-
-    <div class="links">
-      <a href="#about">O serwerze</a>
-      <a href="#features">Tryby</a>
-      <a href="#rules">Regulamin</a>
-      <a href="#join">Dołącz</a>
-    </div>
-
-  </div>
+<div class="container nav">
+<a class="brand" href="#home"><span class="cube">C</span>CyberWRLD</a>
+<div class="links">
+<a href="#about">O serwerze</a>
+<a href="#features">Tryby</a>
+<a href="#rules">Regulamin</a>
+<a href="#join">Dołącz</a>
+</div>
+</div>
 </nav>
 
 <main>
 
-<!-- HERO -->
-
 <section class="hero" id="home">
+<div class="container">
+<span class="eyebrow">● SERWER MINECRAFT 1.21.4</span>
+<h1>Wskocz do świata<br><span>CyberWRLD</span></h1>
+<p>Dynamiczny serwer Minecraft dla graczy, którzy chcą budować, rywalizować i dobrze się bawić. Zero modów — wystarczy Minecraft Java Edition.</p>
 
-  <div class="container">
+<div class="actions">
+<a class="btn primary" href="#join">Dołącz do serwera</a>
+<a class="btn secondary" href="#features">Zobacz tryby</a>
+</div>
 
-    <span class="eyebrow">
-      ● SERWER MINECRAFT 1.21.4
-    </span>
+<div class="status">
+<span class="dot"></span>
+<strong>Serwer online</strong>
+<small id="players">Sprawdź status w grze</small>
+</div>
 
-    <h1>
-      Wskocz do świata<br>
-      <span>CyberWRLD</span>
-    </h1>
-
-    <p>
-      Dynamiczny serwer Minecraft dla graczy,
-      którzy chcą rywalizować i dobrze się bawić.
-      Zero modów — wystarczy Minecraft Java Edition.
-    </p>
-
-    <div class="actions">
-
-      <a class="btn primary" href="#join">
-        Dołącz do serwera
-      </a>
-
-      <a class="btn secondary" href="#features">
-        Zobacz tryby
-      </a>
-
-    </div>
-
-    <div class="status">
-
-      <span class="dot"></span>
-
-      <strong>
-        Serwer online
-      </strong>
-
-      <small>
-        Sprawdź status w grze
-      </small>
-
-    </div>
-
-  </div>
-
+</div>
 </section>
-
-<!-- O SERWERZE -->
 
 <section id="about">
+<div class="container">
+<h2 class="section-title">Dlaczego CyberWRLD?</h2>
+<p class="section-sub">Prosty start, dużo możliwości i rozgrywka bez zbędnych komplikacji.</p>
 
-  <div class="container">
+<div class="grid">
 
-    <h2 class="section-title">
-      Dlaczego CyberWRLD?
-    </h2>
+<article class="card">
+<div class="icon">⚔️</div>
+<h3>Rywalizacja</h3>
+<p>Walcz o swoją pozycję, rozwijaj ekwipunek i pokazuj swoje umiejętności.</p>
+</article>
 
-    <p class="section-sub">
-      Prosty start, dużo możliwości i rozgrywka bez zbędnych komplikacji.
-    </p>
+<article class="card">
+<div class="icon">🏗️</div>
+<h3>Budowanie</h3>
+<p>Twórz własną bazę, rozwijaj teren i buduj razem ze znajomymi.</p>
+</article>
 
-    <div class="grid">
+<article class="card">
+<div class="icon">🎁</div>
+<h3>Eventy i nagrody</h3>
+<p>Regularne aktywności, zadania i nagrody dla aktywnych graczy.</p>
+</article>
 
-      <article class="card">
-
-        <div class="icon">⚔️</div>
-
-        <h3>
-          Rywalizacja
-        </h3>
-
-        <p>
-          Walcz o swoją pozycję, rozwijaj ekwipunek
-          i pokazuj swoje umiejętności.
-        </p>
-
-      </article>
-
-      <article class="card">
-
-        <div class="icon">🏗️</div>
-
-        <h3>
-          Budowanie
-        </h3>
-
-        <p>
-          Twórz własną bazę, rozwijaj teren
-          i graj razem ze znajomymi.
-        </p>
-
-      </article>
-
-      <article class="card">
-
-        <div class="icon">🎁</div>
-
-        <h3>
-          Eventy i nagrody
-        </h3>
-
-        <p>
-          Regularne aktywności, zadania
-          i nagrody dla aktywnych graczy.
-        </p>
-
-      </article>
-
-    </div>
-
-  </div>
-
+</div>
+</div>
 </section>
-
-<!-- TRYBY -->
 
 <section id="features">
+<div class="container">
+<h2 class="section-title">Tryby i funkcje</h2>
+<p class="section-sub">Najważniejsze elementy serwera w jednym miejscu.</p>
 
-  <div class="container">
+<div class="grid">
 
-    <h2 class="section-title">
-      Tryby i funkcje
-    </h2>
+<article class="card">
+<div class="icon">⚔️</div>
+<h3>Anarchia FFA</h3>
+<p>Dynamiczna rozgrywka PvP bez zbędnych ograniczeń — walcz i rywalizuj z innymi graczami.</p>
+</article>
 
-    <p class="section-sub">
-      Najważniejsze elementy serwera w jednym miejscu.
-    </p>
+<article class="card">
+<div class="icon">💰</div>
+<h3>Rynek</h3>
+<p>Handluj z innymi graczami i rozwijaj swój majątek.</p>
+</article>
 
-    <div class="grid">
+<article class="card">
+<div class="icon">🧭</div>
+<h3>Strefa AFK</h3>
+<p>Odpoczywaj na specjalnej strefie i odbieraj nagrody za obecność.</p>
+</article>
 
-      <article class="card">
-
-        <div class="icon">⚔️</div>
-
-        <h3>
-          Anarchia FFA
-        </h3>
-
-        <p>
-          Dynamiczna rozgrywka PvP bez zbędnych ograniczeń —
-          walcz i rywalizuj z innymi graczami.
-        </p>
-
-      </article>
-
-      <article class="card">
-
-        <div class="icon">💰</div>
-
-        <h3>
-          Rynek
-        </h3>
-
-        <p>
-          Handluj z innymi graczami
-          i rozwijaj swój majątek.
-        </p>
-
-      </article>
-
-      <article class="card">
-
-        <div class="icon">🧭</div>
-
-        <h3>
-          Strefa AFK
-        </h3>
-
-        <p>
-          Odpoczywaj na specjalnej strefie
-          i odbieraj nagrody za obecność.
-        </p>
-
-      </article>
-
-    </div>
-
-  </div>
-
+</div>
+</div>
 </section>
-
-<!-- REGULAMIN -->
 
 <section id="rules">
+<div class="container">
+<h2 class="section-title">Najważniejsze zasady</h2>
+<p class="section-sub">Pełny regulamin może być dostępny na Discordzie serwera.</p>
 
-  <div class="container">
+<div class="rules">
 
-    <h2 class="section-title">
-      Najważniejsze zasady
-    </h2>
+<div class="rule">
+<b>01.</b> Szanuj innych graczy.
+</div>
 
-    <p class="section-sub">
-      Pełny regulamin może być dostępny na Discordzie serwera.
-    </p>
+<div class="rule">
+<b>02.</b> Nie używaj cheatów ani wspomagaczy.
+</div>
 
-    <div class="rules">
+<div class="rule">
+<b>03.</b> Nie wykorzystuj bugów serwera.
+</div>
 
-      <div class="rule">
-        <b>01.</b>
-        Szanuj innych graczy.
-      </div>
+<div class="rule">
+<b>04.</b> Stosuj się do poleceń administracji.
+</div>
 
-      <div class="rule">
-        <b>02.</b>
-        Nie używaj cheatów ani wspomagaczy.
-      </div>
-
-      <div class="rule">
-        <b>03.</b>
-        Nie wykorzystuj bugów serwera.
-      </div>
-
-      <div class="rule">
-        <b>04.</b>
-        Stosuj się do poleceń administracji.
-      </div>
-
-    </div>
-
-  </div>
-
+</div>
+</div>
 </section>
 
-<!-- DOŁĄCZ -->
-
 <section id="join">
+<div class="container">
 
-  <div class="container">
+<h2 class="section-title">Dołącz już teraz</h2>
+<p class="section-sub">Skopiuj adres serwera i wklej go w zakładce Multiplayer.</p>
 
-    <h2 class="section-title">
-      Dołącz już teraz
-    </h2>
+<div class="ipbox">
+<span class="ip" id="ip">CyberWRLD.aternos.me</span>
+<button class="copy" id="copy">Kopiuj IP</button>
+</div>
 
-    <p class="section-sub">
-      Skopiuj adres serwera i wklej go w zakładce Multiplayer.
-    </p>
+<div class="actions">
+<a class="btn secondary" href="https://discord.gg/v3Edsf5ctu" target="_blank" rel="noopener noreferrer">
+Discord serwera
+</a>
+</div>
 
-    <div class="ipbox">
-
-      <span class="ip" id="ip">
-        CyberWRLD.aternos.me
-      </span>
-
-      <button class="copy" id="copy">
-        Kopiuj IP
-      </button>
-
-    </div>
-
-    <div class="actions">
-
-      <a
-        class="btn secondary"
-        href="https://discord.com"
-        target="_blank"
-        rel="noopener"
-      >
-        Discord serwera
-      </a>
-
-    </div>
-
-  </div>
-
+</div>
 </section>
 
 </main>
 
-<!-- STOPKA -->
-
 <footer>
-
-  <div
-    class="container"
-    style="display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap"
-  >
-
-    <span>
-      © 2026 CyberWRLD
-    </span>
-
-    <span>
-      Minecraft Server • 1.21.4
-    </span>
-
-  </div>
-
+<div class="container" style="display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap">
+<span>© 2026 CyberWRLD</span>
+<span>Minecraft Server • 1.21.4</span>
+</div>
 </footer>
 
 </div>
 
 <script>
+const copy=document.getElementById('copy');
+const ip=document.getElementById('ip');
 
-const copy = document.getElementById("copy");
-const ip = document.getElementById("ip");
-
-copy.addEventListener("click", async () => {
-
-  try {
-
-    await navigator.clipboard.writeText(ip.textContent.trim());
-
-    copy.textContent = "Skopiowano!";
-
-    setTimeout(() => {
-      copy.textContent = "Kopiuj IP";
-    }, 1600);
-
-  } catch(e) {
-
-    copy.textContent = "Skopiuj: " + ip.textContent.trim();
-
-  }
-
+copy.addEventListener('click',async()=>{
+try{
+await navigator.clipboard.writeText(ip.textContent.trim());
+copy.textContent='Skopiowano!';
+setTimeout(()=>copy.textContent='Kopiuj IP',1600);
+}catch(e){
+copy.textContent='Skopiuj: '+ip.textContent.trim();
+}
 });
-
 </script>
 
 </body>
